@@ -2,7 +2,7 @@ package controller
 
 import (
 	"net/http"
-	"project_shopping_tour/service_admin_crud/model"
+	"service_admin_crud/model"
 
 	"github.com/gin-gonic/gin"
 )

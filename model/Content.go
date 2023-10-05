@@ -5,7 +5,6 @@ type Content struct {
 	CategoryContent string
 	Title           string
 	Content         string
-	ArrayImg        []ArrayImgPath
 	CreateDate      int
 	UpdateDate      int
 }
