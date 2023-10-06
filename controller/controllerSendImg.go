@@ -12,19 +12,19 @@ import (
 )
 
 func ControllerSendImg(c *gin.Context) {
-	var res model.ImgPath
-	ctx := context.Background()
-	BUCKET := "demostoragebucketearth"
-	imagePath := res.UserID + "_" + res.ImageName
-	if err := c.BindJSON(&res); err != nil {
+	var req model.ImgPath
+	if err := c.BindJSON(&req); err != nil {
 		log.Println("error BindJSON => ", err)
 	}
+	imagePath := req.UserID + "_" + req.ImageName
+	// log.Println("imagePath => ", imagePath)
+	ctx := context.Background()
 	client, err := storage.NewClient(ctx)
 	if err != nil {
 		log.Println("can't create new client ", err)
 	}
 
-	buckets := client.Bucket(BUCKET)
+	buckets := client.Bucket("demostoragebucketearth")
 	rc, err := buckets.Object(imagePath).NewReader(ctx)
 	if err != nil {
 		log.Println("err when fetch image from bucket", err)
