@@ -16,6 +16,7 @@ func main() {
 	router.POST("/api/upload", controller.ControllerUploadFile)
 	router.POST("/api/update/product", controller.ControllerProduct)
 	router.POST("/api/update/content", controller.ControllerContent)
+	router.PUT("/api/upload/img", controller.ControllerUploadImage)
 
 	err := router.Run(port)
 	if err != nil {
