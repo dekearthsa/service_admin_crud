@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"service_admin_crud/controller"
 
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 )
 
@@ -11,6 +12,11 @@ const port string = ":7475"
 
 func main() {
 	router := gin.New()
+	router.Use(cors.New(cors.Config{
+		AllowOrigins: []string{"*"},
+		AllowMethods: []string{"POST", "PUT", "PATCH", "DELETE"},
+		AllowHeaders: []string{"Content-Type,access-control-allow-origin,access-control-allow-headers"},
+	}))
 
 	router.GET("/api/debug", controller.ControllerDebug)
 	router.POST("/api/upload", controller.ControllerUploadFile)

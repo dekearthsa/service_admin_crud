@@ -2,6 +2,7 @@ package controller
 
 import (
 	"context"
+	"encoding/base64"
 	"io"
 	"log"
 	"net/http"
@@ -36,8 +37,10 @@ func ControllerSendImg(c *gin.Context) {
 		log.Println("err read file from bucket")
 		c.JSON(http.StatusInternalServerError, gin.H{"Status": "err read file from bucket."})
 	}
-
-	c.Data(http.StatusOK, "application/octet-stream", byteFile)
-	// c.JSON(http.StatusOK, gin.H{"Status": "Sent"})
+	// // application/octet-stream // //
+	str := base64.StdEncoding.EncodeToString(byteFile)
+	// c.Header("Content-Disposition", "attachment; filename=file-name.png")
+	// c.Data(http.StatusOK, "image/png", byteFile)
+	c.JSON(http.StatusOK, gin.H{"img": str})
 
 }
