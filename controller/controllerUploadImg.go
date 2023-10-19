@@ -47,7 +47,7 @@ func ControllerUploadImage(c *gin.Context) {
 		}
 		defer src.Close()
 
-			 := uid + "_" + file.Filename
+		imagePath := uid + "_" + file.Filename
 		client, err := storage.NewClient(ctx)
 		if err != nil {
 			log.Println("err storage.NewClient(ctx) => ", err)

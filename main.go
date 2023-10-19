@@ -24,6 +24,8 @@ func main() {
 	router.POST("/api/update/content", controller.ControllerContent)
 	router.POST("/api/send/img", controller.ControllerSendImg)
 	router.PUT("/api/upload/img", controller.ControllerUploadImage)
+	router.GET("/api/send/selectpath", controller.ControllerGetAllPath)
+	router.POST("/api/send/mulit/img", controller.ControllerFindMulitImg)
 
 	err := router.Run(port)
 	if err != nil {
