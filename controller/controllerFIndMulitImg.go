@@ -14,13 +14,16 @@ import (
 
 func ControllerFindMulitImg(c *gin.Context) {
 	var req model.ArrayImgPath
+	if err := c.BindJSON(&req); err != nil {
+		log.Println("error BindJSON => ", err)
+	}
+	log.Println(req)
 	var arrayBase64 []string
 	for _, element := range req.ArrayImg {
-		if err := c.BindJSON(&req); err != nil {
-			log.Println("error BindJSON => ", err)
-		}
-		imagePath := req.ID + "_" + element
+
+		// imagePath := req.ID + "_" + element
 		// log.Println("imagePath => ", imagePath)
+
 		ctx := context.Background()
 		client, err := storage.NewClient(ctx)
 		if err != nil {
@@ -28,7 +31,7 @@ func ControllerFindMulitImg(c *gin.Context) {
 		}
 
 		buckets := client.Bucket("demostoragebucketearth")
-		rc, err := buckets.Object(imagePath).NewReader(ctx)
+		rc, err := buckets.Object(element).NewReader(ctx)
 		if err != nil {
 			log.Println("err when fetch image from bucket", err)
 			c.JSON(http.StatusServiceUnavailable, gin.H{"Status": "err when fetch image from bucket."})
